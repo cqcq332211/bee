@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copy Text to Clipboard</title>
+</head>
+<style>
+  body { font-family: 'Courier New', monospace; background-color: #fff; color: #000; padding: 6px; }
+  pre { white-space: pre-wrap; word-wrap: break-word; }
+  button{
+      color: #000;
+      border: none;
+      background-color: #fff;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+  }
+</style>
+<body>
+
+  <pre>
+    Error: Cannot find module 'reconnect'
+        at Function.Module._resolveFilename (module.js:513:15)
+        at Function.Module._load (module.js:463:25)
+        at Module.require (module.js:556:17)
+        at require (internal/module.js:11:18)
+        at eval (eval at (eval at if (/apps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-helpers/lib/dust-helpers.js:213:10)),:1:87)
+        at eval (eval at if (/apps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-helpers/lib/dust-helpers.js:213:10),:1:7)
+        at Object.if (/apps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-helpersapps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-linkedin/lib/dust.js:769:34)
+        at body_1 (evalmachine.:1:348)   
+        at Chunk.block (/apps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-linkedin/lib/dust.js:725:14)
+        at body_0 (evalmachine.:1:1600) at Object.dust.load (/apps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-linkedin/lib/dust.js:135:14)
+        at Chunk.partial (/apps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-linkedin/lib/dust.js:759:27) at body_0 (evalmachine.:1:131)
+        at /apps/evrs-main-express/node_modules/express-dustjs/node_modules/dustjs-linkedin/lib/dust.js:122:11 combinedTickCallback (internal/process/next_tick.js:131:7)
+        <button id="copyButton" data-text="<%= text %>" style="top: 225px;position: absolute;left: -50px;">
+          Error: Database connection failed
+                at connectDatabase (app.js:123)
+           at startServer (app.js:45)
+    at main (app.js:18)
+                  at eval (eval at (app.js:5),:1:1)
+        </button>
+  </pre>
+
+<!-- Button to copy text -->
+
+
+<script>
+// Function to copy text to clipboard
+function copyToClipboard(text) {
+  // Creating a textarea element
+  var textarea = document.createElement("textarea");
+
+  // Set the value of the textarea to the text you want to copy
+  textarea.value = text;
+
+  // Make the textarea out of viewport
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+
+  // Appending the textarea to the HTML document
+  document.body.appendChild(textarea);
+
+  // Select the text inside the textarea
+  textarea.select();
+
+  // Execute browser copy command
+  try {
+    var successful = document.execCommand('copy');
+    var message = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text to clipboard was ' + message);
+  } catch (err) {
+    console.error('Unable to copy text to clipboard:', err);
+  }
+
+  // Removing the textarea
+  document.body.removeChild(textarea);
+}
+
+// Event listener for the copy button
+document.getElementById('copyButton').addEventListener('click', function() {
+  var text = this.getAttribute('data-text');
+  copyToClipboard(text);
+});
+</script>
+
+</body>
+</html>
