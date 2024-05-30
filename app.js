@@ -88,7 +88,7 @@ app.get('/login', (req, res) => {
   res.render('index', { text:"const multer = require('multer');\nconst path = require('path');\n\nconst storage = multer.diskStorage({\n    destination: function (req, file, cb) {\n      cb(null, path.join(__dirname, '../public/uploads'));\n    },\n    filename: function (req, file, cb) {\n      cb(null, Date.now() + '-' + file.originalname)\n    }\n})\n  \nconst upload = multer({ \n    storage: storage,\n    fileFilter: function (req, file, cb) {\n      const filetypes = ['image/jpeg', 'image/png', 'image/jpg'];\n      const extname = ['.jpeg', '.jpg', '.png'].includes(path.extname(file.originalname).toLowerCase());\n      const mimetype = filetypes.includes(file.mimetype);\n    \n      if (mimetype && extname) {\n        cb(null, true);\n      } else {\n        cb('Error: Images Only!');\n      }\n    },\n    limits: { fileSize: 1024 * 1024 * 5 }\n})\n\nmodule.exports =  upload ;"});
 
 
-  app.get('/databaseconfig', (req, res) => {
+  app.get('/dataconfig', (req, res) => {
   // Pass data to index.ejs
   res.render('index', { text:"const mongoose = require('mongoose');\n\nconst dbConnect = () => {\n    mongoose.connect('mongodb://localhost:27017/', {\n        useNewUrlParser: true,\n        useUnifiedTopology: true,\n    })\n    .then(() => {\n        console.log(\"connected to database\");\n    })\n    .catch((err) => {\n        console.log(err);\n    })\n}\n\nmodule.exports = { dbConnect };"});
 
