@@ -20,10 +20,10 @@ app.get('/', (req, res) => {
 });
 
 // Serve different text content based on the URL path
-app.get('/0', (req, res) => {
-  // Pass data to index.ejs
-  res.render('index', { text: "const http = require(\"http\");\nconst fs = require(\"fs\");\nconst url = require(\"url\");\nconst path = require(\"path\");\n\nconst port = 3001;\n\nconst server = http.createServer((req, res) => {\nconst reqUrl = url.parse(req.url, true);\n\n  if (reqUrl.pathname === \"/\") {\n    fs.readFile(path.join(__dirname, \"todo.json\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/getdata\") {\n    fs.readFile(path.join(__dirname, \"login.html\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/style.css\") {\n    fs.readFile(path.join(__dirname, \"style.css\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else {\n    res.end(\"Not Found\");\n  }\n});\nserver.listen(port, () => {\n  console.log(Server running at ${port});\n});"});
-});
+// app.get('/0', (req, res) => {
+//   // Pass data to index.ejs
+//   res.render('index', { text: "const http = require(\"http\");\nconst fs = require(\"fs\");\nconst url = require(\"url\");\nconst path = require(\"path\");\n\nconst port = 3001;\n\nconst server = http.createServer((req, res) => {\nconst reqUrl = url.parse(req.url, true);\n\n  if (reqUrl.pathname === \"/\") {\n    fs.readFile(path.join(__dirname, \"todo.json\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/getdata\") {\n    fs.readFile(path.join(__dirname, \"login.html\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/style.css\") {\n    fs.readFile(path.join(__dirname, \"style.css\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else {\n    res.end(\"Not Found\");\n  }\n});\nserver.listen(port, () => {\n  console.log(Server running at ${port});\n});"});
+// });
 
 app.get('/1', (req, res) => {
   // Pass data to index.ejs
