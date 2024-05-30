@@ -83,12 +83,12 @@ app.get('/login', (req, res) => {
   res.render('index', { text:"const express = require('express');\nconst path = require('path');\nconst session = require('express-session');\nconst cors = require('cors');\nconst cookieParser = require('cookie-parser');\nconst { dbConnect } = require('./config/database');\nconst router = require('./routes/router');\nconst adminRouter = require('./routes/adminRouter');\nconst UserRouter = require('./routes/userRouter');\n\nconst app = express();\n\napp.set('view engine', \"ejs\");\napp.set('views', path.join(__dirname, './public/views'));\napp.use(express.static(path.join(__dirname, './public')));\n\napp.use(cookieParser());\n\napp.use(cors());\n\napp.use(session({\n    saveUninitialized: true,\n    resave: false,\n    secret: \"SECRET\",\n}))\n\napp.use(express.json());\napp.use(express.urlencoded({ extended: true }));\n\n// routes\napp.use('/user', UserRouter);\napp.use('/', router);\napp.use('/admin', adminRouter);\n\n\n\napp.listen(3000, () => {\n    console.log(\"server started\");\n})\ndbConnect();"});
 
 
-  app.get('/configmulter', (req, res) => {
+  app.get('/multerconfig', (req, res) => {
   // Pass data to index.ejs
   res.render('index', { text:"const multer = require('multer');\nconst path = require('path');\n\nconst storage = multer.diskStorage({\n    destination: function (req, file, cb) {\n      cb(null, path.join(__dirname, '../public/uploads'));\n    },\n    filename: function (req, file, cb) {\n      cb(null, Date.now() + '-' + file.originalname)\n    }\n})\n  \nconst upload = multer({ \n    storage: storage,\n    fileFilter: function (req, file, cb) {\n      const filetypes = ['image/jpeg', 'image/png', 'image/jpg'];\n      const extname = ['.jpeg', '.jpg', '.png'].includes(path.extname(file.originalname).toLowerCase());\n      const mimetype = filetypes.includes(file.mimetype);\n    \n      if (mimetype && extname) {\n        cb(null, true);\n      } else {\n        cb('Error: Images Only!');\n      }\n    },\n    limits: { fileSize: 1024 * 1024 * 5 }\n})\n\nmodule.exports =  upload ;"});
 
 
-  app.get('/configdatabase', (req, res) => {
+  app.get('/databaseconfig', (req, res) => {
   // Pass data to index.ejs
   res.render('index', { text:"const mongoose = require('mongoose');\n\nconst dbConnect = () => {\n    mongoose.connect('mongodb://localhost:27017/', {\n        useNewUrlParser: true,\n        useUnifiedTopology: true,\n    })\n    .then(() => {\n        console.log(\"connected to database\");\n    })\n    .catch((err) => {\n        console.log(err);\n    })\n}\n\nmodule.exports = { dbConnect };"});
 
