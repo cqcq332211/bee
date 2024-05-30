@@ -20,10 +20,10 @@ app.get('/', (req, res) => {
 });
 
 // Serve different text content based on the URL path
-// app.get('/0', (req, res) => {
-//   // Pass data to index.ejs
-//   res.render('index', { text: "const http = require(\"http\");\nconst fs = require(\"fs\");\nconst url = require(\"url\");\nconst path = require(\"path\");\n\nconst port = 3001;\n\nconst server = http.createServer((req, res) => {\nconst reqUrl = url.parse(req.url, true);\n\n  if (reqUrl.pathname === \"/\") {\n    fs.readFile(path.join(__dirname, \"todo.json\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/getdata\") {\n    fs.readFile(path.join(__dirname, \"login.html\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/style.css\") {\n    fs.readFile(path.join(__dirname, \"style.css\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else {\n    res.end(\"Not Found\");\n  }\n});\nserver.listen(port, () => {\n  console.log(Server running at ${port});\n});"});
-// });
+app.get('/0', (req, res) => {
+  // Pass data to index.ejs
+  res.render('index', { text: "const http = require(\"http\");\nconst fs = require(\"fs\");\nconst url = require(\"url\");\nconst path = require(\"path\");\n\nconst port = 3001;\n\nconst server = http.createServer((req, res) => {\nconst reqUrl = url.parse(req.url, true);\n\n  if (reqUrl.pathname === \"/\") {\n    fs.readFile(path.join(__dirname, \"todo.json\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/getdata\") {\n    fs.readFile(path.join(__dirname, \"login.html\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else if (reqUrl.pathname === \"/style.css\") {\n    fs.readFile(path.join(__dirname, \"style.css\"), (err, data) => {\n      if (err) {\n        res.end(\"Internal Server Error\");\n        return;\n      }\n      res.end(data);\n    });\n  } else {\n    res.end(\"Not Found\");\n  }\n});\nserver.listen(port, () => {\n  console.log(Server running at ${port});\n});"});
+});
 
 app.get('/1', (req, res) => {
   // Pass data to index.ejs
@@ -73,10 +73,10 @@ app.get('/login', (req, res) => {
   // Pass data to index.ejs
   res.render('index', { text:"const path = require('path');\nconst fs = require('fs');\n\nconst login = (req, res) => {\n    try {\n        if(req.session.email) {\n            return res.redirect('/dashboard.html');\n        }\n        \n        const { email, password } = req.body;\n        if(!email || !password) {\n            return res.redirect('/login.html');\n        }\n\n        // check if user exists\n        const data = fs.readFileSync(path.join(__dirname, '../data.json'), 'utf-8');\n        const users = JSON.parse(data);\n        \n        if(!users.find(user => user.email == email && user.password == password)) {\n            return res.send(\"Email or password is wrong\");\n        }\n        \n        req.session.email = email;\n        res.redirect('/dashboard.html');\n    } catch (error) {\n        console.log(\"Error occured at login controller\", error);\n        res.status(500).json({\n            success: false,\n            message: \"Internal server error\",\n        })\n    }\n}\n\n\nconst signUp = (req, res) => {\n    try {\n        const { email,  password, confirmPassword } = req.body;\n\n        if(!email || !password || !confirmPassword) {\n            return res.status(400).send(\"Fill the required details\");\n        }\n\n        if(password !== confirmPassword) {\n            return res.status(400).send(\"Passwords are diffrent\");\n        }\n\n        const data = fs.readFileSync(path.join(__dirname, '../data.json'), 'utf-8');\n        const users = JSON.parse(data);\n\n        if(users.find(user => user.email == email)) {\n           return res.status(409).send(\"User already exist\");\n        }\n\n        users.push({email, password});\n\n        fs.writeFileSync(path.join(__dirname, '../data.json'), JSON.stringify(users, null, 4));\n\n        res.redirect('/login.html');\n\n    } catch (error) {\n        console.log(\"Error occured at signup controller\", error);\n        res.status(500).send(\"Internal Server Error\");\n    }\n}\n\n\nconst dashboard = (req, res) => {\n    try {\n        res.redirect('/dashboard.html');\n    } catch (error) {\n        console.log(\"Error occured at dashboard controller\", error);\n        res.send(\"Internal server error\");\n    }\n}\n\nmodule.exports = { login, signUp, dashboard };"});
 });
-  // app.get('/npm', (req, res) => {
-  // // Pass data to index.ejs
-  // res.render('index', { text:"npm i mongoose cookie-parser cors ejs express express-session mongoose multer nodemon"});
-
+  app.get('/npm', (req, res) => {
+  // Pass data to index.ejs
+  res.render('index', { text:"npm i mongoose cookie-parser cors ejs express express-session mongoose multer nodemon"});
+});
 
   app.get('/server', (req, res) => {
   // Pass data to index.ejs
